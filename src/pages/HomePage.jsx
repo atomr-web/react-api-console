@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import HeaderConsole from "../components/HeaderConsole";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-json";

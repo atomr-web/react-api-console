@@ -584,7 +584,7 @@ header .row__item {
     opacity: 1;
     transition: all 0.2s ease;
     padding: 0 10px;
-    margin-bottom: -2px;
+    margin-bottom: -5px;
 }
 
 .history-item__menu-icon:hover {

@@ -24,13 +24,14 @@ const HISTORY = [
     },
 ];
 
-function History() {
+function History(e) {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
+    const itemRef = React.createRef();
 
     const showMenu = (e) => {
         setIsOpenMenu(!isOpenMenu);
 
-        console.log(e.getBoundingClientRect());
+        console.log(itemRef.current.getBoundingClientRect());
     };
 
     return (
@@ -38,7 +39,7 @@ function History() {
             <div className="header__row header__row_bottom">
                 <div className="header__history">
                     <div className="header__history-items">
-                        {HISTORY.map((item) => {
+                        {HISTORY.map((item, i) => {
                             return (
                                 <div
                                     key={item.id}
@@ -48,13 +49,13 @@ function History() {
                                         {item.status === true ? (
                                             <IconHistoryStatusTrue />
                                         ) : (
-                                            <IconHistoryStatusFalse />
-                                        )}
+                                                <IconHistoryStatusFalse />
+                                            )}
                                     </span>
                                     <span className="history-item__title">
                                         {item.name}
                                     </span>
-                                    <IconHistoryToggle showMenu={showMenu} />
+                                    <IconHistoryToggle showMenu={showMenu} itemRef={itemRef} />
                                 </div>
                             );
                         })}
