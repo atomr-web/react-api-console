@@ -1,6 +1,6 @@
 import React from "react";
 
-function HistoryItemMenu({ isOpenMenu }) {
+function HistoryItemMenu({ isOpenMenu, menuRef }) {
     return (
         <>
             {/* style={{ opacity: 0, visibility: "hidden" }} */}

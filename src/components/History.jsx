@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import IconHistoryStatusTrue from "./icons/IconHistoryStatusTrue";
 import IconHistoryStatusFalse from "./icons/IconHistoryStatusFalse";
 import IconHistoryToggle from "./icons/IconHistoryToggle";
@@ -26,19 +26,31 @@ const HISTORY = [
 
 function History(e) {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const itemRef = React.createRef();
+    const itemRef = useRef(null);
+    const menuRef = useRef(null);
 
     const showMenu = (e) => {
         setIsOpenMenu(!isOpenMenu);
 
-        console.log(itemRef.current.getBoundingClientRect());
+        console.log(e);
+
+        // console.log(itemRef.current.children[1]);
+
+        // let itemCoords = itemRef.current.getBoundingClientRect();
+        // let itemWidth = itemRef.current.getBoundingClientRect().width;
+        // let menuWidth = menuRef.current.getBoundingClientRect().width;
+
+        // let diff = itemWidth - menuWidth;
+
+        // menuRef.current.style.left = itemCoords.left + diff + "px";
+        // menuRef.current.style.top = itemCoords.bottom + "px";
     };
 
     return (
         <div>
             <div className="header__row header__row_bottom">
                 <div className="header__history">
-                    <div className="header__history-items">
+                    <div className="header__history-items" ref={itemRef}>
                         {HISTORY.map((item, i) => {
                             return (
                                 <div
@@ -49,18 +61,21 @@ function History(e) {
                                         {item.status === true ? (
                                             <IconHistoryStatusTrue />
                                         ) : (
-                                                <IconHistoryStatusFalse />
-                                            )}
+                                            <IconHistoryStatusFalse />
+                                        )}
                                     </span>
                                     <span className="history-item__title">
                                         {item.name}
                                     </span>
-                                    <IconHistoryToggle showMenu={showMenu} itemRef={itemRef} />
+                                    <IconHistoryToggle showMenu={showMenu} />
                                 </div>
                             );
                         })}
                     </div>
-                    <HistoryItemMenu isOpenMenu={isOpenMenu} />
+                    <HistoryItemMenu
+                        isOpenMenu={isOpenMenu}
+                        menuRef={menuRef}
+                    />
                     <IconHistoryClear />
                 </div>
             </div>

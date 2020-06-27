@@ -1,11 +1,12 @@
 import React from "react";
 
 function IconHistoryToggle({ showMenu, itemRef }) {
-
-    console.log(itemRef);
-
     return (
-        <button className="history-item__menu-icon" onClick={showMenu} ref={itemRef}>
+        <button
+            className="history-item__menu-icon"
+            onClick={showMenu}
+            ref={itemRef}
+        >
             <svg
                 width="4"
                 height="18"
