@@ -1,44 +1,59 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import IconHistoryToggle from "./icons/IconHistoryToggle";
 import IconHistoryStatusTrue from "./icons/IconHistoryStatusTrue";
 import IconHistoryStatusFalse from "./icons/IconHistoryStatusFalse";
 import HistoryItemMenu from "./HistoryItemMenu";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
-function HistoryItem({ status, name }) {
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const itemRef = useRef(null);
+function HistoryItem({ status, name, query }) {
+    const [isOpenMenu, setIsOpenMenu] = useState(false);
+    const [isCopied, setIsCopied] = useState(false);
+    const [valQuery, setValQuery] = useState();
 
-  const showMenu = (e) => {
-    setIsOpenMenu(!isOpenMenu);
+    useEffect(() => {
+        setValQuery(query);
+    }, [query]);
 
-    // console.log(menuRef);
+    const showMenu = (e) => {
+        setIsOpenMenu(!isOpenMenu);
+    };
 
-    let itemCoords = itemRef.current.getBoundingClientRect();
-    let itemWidth = itemRef.current.getBoundingClientRect().width;
-    // console.log(itemCoords);
+    const copyClipboared = () => {
+        setIsOpenMenu(false);
+        setIsCopied(true);
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 1000);
+    };
 
-    // let menuWidth = menuRef.current.getBoundingClientRect().width;
-
-    // let diff = itemWidth - menuWidth;
-
-    // menuRef.current.style.left = itemCoords.left + diff + "px";
-    // menuRef.current.style.top = itemCoords.bottom + "px";
-  };
-
-  return (
-    <div className="header-history__item" ref={itemRef}>
-      <span className="history-item__status">
-        {status === true ? (
-          <IconHistoryStatusTrue />
-        ) : (
-          <IconHistoryStatusFalse />
-        )}
-      </span>
-      <span className="history-item__title">{name}</span>
-      <IconHistoryToggle showMenu={showMenu} />
-      {isOpenMenu ? <HistoryItemMenu isOpenMenu={isOpenMenu} /> : null}
-    </div>
-  );
+    return (
+        <div className="header-history__item">
+            <CopyToClipboard text={valQuery} onCopy={() => copyClipboared()}>
+                <div>
+                    <span className="history-item__status">
+                        {status === true ? (
+                            <IconHistoryStatusTrue />
+                        ) : (
+                            <IconHistoryStatusFalse />
+                        )}
+                    </span>
+                    <span className="history-item__title">{name}</span>
+                </div>
+            </CopyToClipboard>
+            <IconHistoryToggle showMenu={showMenu} />
+            <div
+                className={`history-item__copy-text ${isCopied ? "show" : ""} `}
+            >
+                Скопировано
+            </div>
+            {isOpenMenu ? (
+                <HistoryItemMenu
+                    isOpenMenu={isOpenMenu}
+                    copyClipboared={copyClipboared}
+                />
+            ) : null}
+        </div>
+    );
 }
 
 export default HistoryItem;

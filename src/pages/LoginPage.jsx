@@ -64,11 +64,11 @@ function LoginPage() {
                             </form>
                         </div>
                         <a
-                            href="https://github.com/"
+                            href="https://github.com/atomr-web/react-api-console"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            @link-github
+                            @react-api-console
                         </a>
                     </div>
                 </div>

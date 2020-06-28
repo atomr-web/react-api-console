@@ -479,6 +479,11 @@ input[type="password"]:focus:hover {
     margin: 0 auto;
 }
 
+.fullscreen {
+    background: #f7f7f7;
+    overflow: auto;
+}
+
 header .header__row {
     padding: 10px 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -517,14 +522,14 @@ header .row__item {
     margin: 0 15px 0 30px;
 }
 
-.header__login .login:after {
+.header__login .sublogin:before {
     content: ":";
     display: inline-block;
     vertical-align: middle;
     font-size: 16px;
     line-height: 20px;
     color: rgba(0, 0, 0, 0.2);
-    margin-left: 5px;
+    margin: 0 5px;
     position: relative;
     top: -1px;
 }
@@ -553,10 +558,12 @@ header .row__item {
     padding: 10px 15px;
     box-sizing: border-box;
     position: relative;
-    overflow-x: auto;
+    z-index: 2;
+    transform: translate(0, 0);
 }
 
 .header-history__item {
+    position: relative;
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -592,6 +599,29 @@ header .row__item {
     stroke: initial;
 }
 
+.history-item__copy-text {
+    font-size: 12px;
+    background: #f6f6f6;
+    border-radius: 5px;
+    top: 0;
+    position: absolute;
+    left: 25px;
+    width: calc(100% - 55px);
+    padding: 0 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    height: 0px;
+    line-height: 19px;
+    transition: all 0.2s ease;
+}
+
+.history-item__copy-text.show {
+    top: 5px;
+    height: 19px;
+}
+
 .history-item__menu {
     display: flex;
     flex-direction: column;
@@ -599,7 +629,9 @@ header .row__item {
     background: #ffffff;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
     border-radius: 3px;
-    position: fixed;
+    position: absolute;
+    top: 100%;
+    right: 0;
     z-index: 9;
     padding: 5px 0;
     opacity: 0;
@@ -652,7 +684,7 @@ header .row__item {
     right: 0;
     box-sizing: border-box;
     width: 51px;
-    height: 50px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -729,4 +761,19 @@ header .row__item {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.ace_content,
+.ace_text-layer {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.ace_layer {
+    width: calc(100% - 20px);
+}
+
+.ace_text-layer {
+    top: 10px !important;
+    left: 10px !important;
 }
