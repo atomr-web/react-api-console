@@ -2,7 +2,6 @@ import React from "react";
 import HomePage from "./pages/HomePage";
 
 import "./assets/css/style.css";
-
 import "./App.css";
 
 function App() {

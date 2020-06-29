@@ -550,6 +550,10 @@ header .row__item {
     margin-left: 10px;
 }
 
+.header__history {
+    height: 48px;
+}
+
 .header__history-items {
     display: flex;
     flex-direction: row;

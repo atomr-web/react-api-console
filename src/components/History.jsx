@@ -1,41 +1,29 @@
 import React from "react";
+import { connect } from "react-redux";
 import IconHistoryClear from "./icons/IconHistoryClear";
 import HistoryItem from "./HistoryItem";
 
-const HISTORY = [
-    {
-        id: 1,
-        status: false,
-        name: "pong",
-        query: `{
-            action: "pong",
-        }`,
-    },
-    {
-        id: 2,
-        status: true,
-        name: "sys.settings.get",
-        query: `{
-            action: "sys.settings.get",
-        }`,
-    },
-];
+function History({ items }) {
+    console.log(items);
 
-function History(e) {
     return (
         <div className="header__row header__row_bottom">
             <div className="header__history">
                 <div className="header__history-items">
-                    {HISTORY.map((item, i) => {
-                        return (
-                            <HistoryItem
-                                key={item.id}
-                                status={item.status}
-                                name={item.name}
-                                query={item.query}
-                            />
-                        );
-                    })}
+                    {items.length
+                        ? items.map((item, i) => {
+                              return (
+                                  <HistoryItem
+                                      key={item.id}
+                                      id={item.id}
+                                      status={item.status}
+                                      name={item.name}
+                                      query={item.query}
+                                      isCopied={item.isCopied}
+                                  />
+                              );
+                          })
+                        : null}
                 </div>
                 <IconHistoryClear />
             </div>
@@ -43,4 +31,10 @@ function History(e) {
     );
 }
 
-export default History;
+const mapStateToProps = (state) => {
+    return {
+        items: state.items.items,
+    };
+};
+
+export default connect(mapStateToProps, null)(History);
