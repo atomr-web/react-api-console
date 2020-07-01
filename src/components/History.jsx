@@ -4,8 +4,6 @@ import IconHistoryClear from "./icons/IconHistoryClear";
 import HistoryItem from "./HistoryItem";
 
 function History({ items }) {
-    console.log(items);
-
     return (
         <div className="header__row header__row_bottom">
             <div className="header__history">
@@ -18,8 +16,9 @@ function History({ items }) {
                                       id={item.id}
                                       status={item.status}
                                       name={item.name}
-                                      query={item.query}
                                       isCopied={item.isCopied}
+                                      isShowMenu={item.isShowMenu}
+                                      query={item.query}
                                   />
                               );
                           })

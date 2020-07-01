@@ -1,30 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { isCopiedHisttoryItem } from "../redux/actions";
+import {
+    toggleCopyText,
+    toggleHistoryMenu,
+    menuHistoryRun,
+} from "../redux/actions";
 import IconHistoryToggle from "./icons/IconHistoryToggle";
 import IconHistoryStatusTrue from "./icons/IconHistoryStatusTrue";
 import IconHistoryStatusFalse from "./icons/IconHistoryStatusFalse";
 import HistoryItemMenu from "./HistoryItemMenu";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-function HistoryItem({ status, name, query, onClickCopied, id, isCopied }) {
-    const [isOpenMenu, setIsOpenMenu] = useState(false);
-
-    const showMenu = (e) => {
-        setIsOpenMenu(!isOpenMenu);
-    };
-
-    const copyClipboared = () => {
-        setIsOpenMenu(false);
-        onClickCopied(id);
+function HistoryItem({
+    status,
+    name,
+    query,
+    id,
+    toogleCopyText,
+    isShowMenu,
+    isCopied,
+    toggleMenu,
+    menuHistoryRUN,
+}) {
+    const onCopyClipboard = () => {
+        toogleCopyText(id, true);
+        toggleMenu(id, false);
         setTimeout(() => {
-            onClickCopied(id);
+            toogleCopyText(id, false);
         }, 1000);
     };
 
     return (
         <div className="header-history__item">
-            <CopyToClipboard text={query} onCopy={() => copyClipboared()}>
+            <CopyToClipboard text={query} onCopy={() => onCopyClipboard(id)}>
                 <div>
                     <span className="history-item__status">
                         {status === true ? (
@@ -36,25 +44,24 @@ function HistoryItem({ status, name, query, onClickCopied, id, isCopied }) {
                     <span className="history-item__title">{name}</span>
                 </div>
             </CopyToClipboard>
-            <IconHistoryToggle showMenu={showMenu} />
+            <IconHistoryToggle toggleMenu={() => toggleMenu(id, !isShowMenu)} />
             <div
                 className={`history-item__copy-text ${isCopied ? "show" : ""} `}
             >
                 Скопировано
             </div>
-            {isOpenMenu ? (
-                <HistoryItemMenu
-                    isOpenMenu={isOpenMenu}
-                    copyClipboared={copyClipboared}
-                />
-            ) : null}
+            {isShowMenu ? <HistoryItemMenu /> : null}
         </div>
     );
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClickCopied: (id) => dispatch(isCopiedHisttoryItem(id)),
+        toogleCopyText: (id, isCopied) =>
+            dispatch(toggleCopyText(id, isCopied)),
+        toggleMenu: (id, isShowMenu) =>
+            dispatch(toggleHistoryMenu(id, isShowMenu)),
+        menuHistoryRUN: (id) => dispatch(menuHistoryRun(id)),
     };
 };
 

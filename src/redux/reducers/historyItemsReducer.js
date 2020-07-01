@@ -1,36 +1,30 @@
-import { ALL_ITEMS, ADD_HISTORY_ITEM, COPY_QUERY_HISTORY_ITEM } from "../types";
+import {
+    ALL_ITEMS,
+    ADD_HISTORY_ITEM,
+    TOGGLE_HISTORY_MENU,
+    TOGGLE_COPY_TEXT,
+    MENU_HISTORY_RUN,
+} from "../types";
 
-const initState = {
-    items: [
-        {
-            id: 1,
-            status: true,
-            name: "pong",
-            isCopied: false,
-            query: `{
-                action: "pong",
-            }`,
-        },
-        {
-            id: 2,
-            status: false,
-            name: "pong 1",
-            isCopied: false,
-            query: `{
-                action: "pong 1",
-            }`,
-        },
-    ],
-};
+import initState from "./initState";
 
 export const historyItemReducer = (state = initState, action) => {
     switch (action.type) {
-        case COPY_QUERY_HISTORY_ITEM:
+        case TOGGLE_COPY_TEXT:
             return {
                 ...state,
                 items: state.items.map((item) =>
                     item.id === action.id
-                        ? { ...item, isCopied: !item.isCopied }
+                        ? { ...item, isCopied: action.isCopied }
+                        : item
+                ),
+            };
+        case TOGGLE_HISTORY_MENU:
+            return {
+                ...state,
+                items: state.items.map((item) =>
+                    item.id === action.id
+                        ? { ...item, isShowMenu: action.isShowMenu }
                         : item
                 ),
             };
@@ -42,13 +36,30 @@ export const historyItemReducer = (state = initState, action) => {
                         id: action.id,
                         status: action.status,
                         name: action.name,
+                        isCopied: false,
+                        isShowMenu: false,
                         query: action.query,
-                        copied: action.copied,
                     },
                 ],
             });
         case ALL_ITEMS:
             return state;
+        default:
+            return state;
+    }
+};
+
+export const historyMenuReducer = (state = initState, action) => {
+    switch (action.type) {
+        case MENU_HISTORY_RUN:
+            return {
+                ...state,
+                items: state.items.map((item) =>
+                    item.id === action.id
+                        ? { ...item, query: item.query }
+                        : item
+                ),
+            };
         default:
             return state;
     }

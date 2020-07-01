@@ -638,13 +638,6 @@ header .row__item {
     right: 0;
     z-index: 9;
     padding: 5px 0;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.history-item__menu.show {
-    opacity: 1;
-    visibility: visible;
 }
 
 .history-item__menu button {

@@ -1,91 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import { menuHistoryRun } from "../redux/actions";
+import Fullscreen from "react-full-screen";
 import HeaderConsole from "../components/HeaderConsole";
+import AppConsoles from "../components/AppConsoles";
 import AppBottom from "../components/AppBottom";
-import AceEditor from "react-ace";
+
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
-import Fullscreen from "react-full-screen";
 
-function HomePage() {
-    const [isFullScreen, setIsFullScreen] = useState(false);
-
-    const onChange = (newValue) => {
-        // console.log("change: ", newValue);
-    };
-
-    const changeScreen = () => {
-        setIsFullScreen(!isFullScreen);
+function HomePage({ isFullScreen, menuHistoryRUN }) {
+    const historyRUN = () => {
+        let test = menuHistoryRUN();
+        console.log(test);
     };
 
     return (
         <div>
-            <Fullscreen
-                enabled={isFullScreen}
-                onChange={(isFullScreen) => setIsFullScreen(isFullScreen)}
-            >
+            <Fullscreen enabled={isFullScreen}>
                 <div className="app-container">
-                    <HeaderConsole
-                        changeScreen={changeScreen}
-                        isFullScreen={isFullScreen}
-                    />
+                    <HeaderConsole />
                     <main>
                         <section className="console-container">
-                            <div className="console">
-                                <div className="console__item">
-                                    <div className="console__title">
-                                        <span>Запрос:</span>
-                                    </div>
-                                    <form
-                                        action="#"
-                                        method="#"
-                                        id="request-form"
-                                    >
-                                        <AceEditor
-                                            mode="json"
-                                            theme="github"
-                                            fontSize={14}
-                                            showGutter={false}
-                                            highlightActiveLine={false}
-                                            onChange={onChange}
-                                            name="request"
-                                            editorProps={{
-                                                $blockScrolling: true,
-                                            }}
-                                            width="100%"
-                                            setOptions={{
-                                                enableBasicAutocompletion: true,
-                                                enableLiveAutocompletion: true,
-                                                enableSnippets: true,
-                                                showLineNumbers: true,
-                                                tabSize: 2,
-                                            }}
-                                        />
-                                    </form>
-                                </div>
-                                <div className="console__item console_error">
-                                    <div className="console__title">
-                                        <span>Ответ:</span>
-                                    </div>
-                                    <AceEditor
-                                        mode="json"
-                                        theme="github"
-                                        fontSize={14}
-                                        showGutter={false}
-                                        highlightActiveLine={false}
-                                        onChange={onChange}
-                                        name="response"
-                                        editorProps={{ $blockScrolling: true }}
-                                        width="100%"
-                                        readOnly={true}
-                                        setOptions={{
-                                            enableBasicAutocompletion: false,
-                                            enableLiveAutocompletion: false,
-                                            enableSnippets: true,
-                                            tabSize: 2,
-                                        }}
-                                    />
-                                </div>
-                            </div>
+                            <AppConsoles />
                             <AppBottom />
                         </section>
                     </main>
@@ -95,4 +32,16 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+const mapStateToProps = (state) => {
+    return {
+        isFullScreen: state.fullScreen.isFullScreen,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        menuHistoryRUN: (id) => dispatch(menuHistoryRun(id)),
+    };
+};
+
+export default connect(mapStateToProps, null)(HomePage);

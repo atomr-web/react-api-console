@@ -1,8 +1,8 @@
 import React from "react";
 
-function IconHistoryToggle({ showMenu }) {
+function IconHistoryToggle({ toggleMenu }) {
     return (
-        <button className="history-item__menu-icon" onClick={showMenu}>
+        <button className="history-item__menu-icon" onClick={toggleMenu}>
             <svg
                 width="4"
                 height="18"

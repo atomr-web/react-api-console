@@ -1,11 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+import { toggleFullScreen } from "../redux/actions";
 import logo from "../assets/img/logo.svg";
 import IconLogout from "./icons/IconLogout";
 import IconFullScreenTrue from "./icons/IconFullScreenTrue";
 import IconFullScreenFalse from "./icons/IconFullScreenFalse";
 import History from "./History";
 
-function HeaderConsole({ changeScreen, isFullScreen }) {
+function HeaderConsole({ toggleFullScreen, isFullScreen }) {
     return (
         <div>
             <header>
@@ -25,7 +27,7 @@ function HeaderConsole({ changeScreen, isFullScreen }) {
                         </button>
                         <button
                             className="header__change-screen"
-                            onClick={changeScreen}
+                            onClick={() => toggleFullScreen()}
                         >
                             {isFullScreen ? (
                                 <IconFullScreenTrue />
@@ -41,4 +43,16 @@ function HeaderConsole({ changeScreen, isFullScreen }) {
     );
 }
 
-export default HeaderConsole;
+const mapStateToProps = (state) => {
+    return {
+        isFullScreen: state.isFullScreen,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        toggleFullScreen: () => dispatch(toggleFullScreen()),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderConsole);
