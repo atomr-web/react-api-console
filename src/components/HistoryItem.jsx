@@ -30,6 +30,10 @@ function HistoryItem({
         }, 1000);
     };
 
+    const historyRun = () => {
+        menuHistoryRUN(id);
+    };
+
     return (
         <div className="header-history__item">
             <CopyToClipboard text={query} onCopy={() => onCopyClipboard(id)}>
@@ -50,7 +54,9 @@ function HistoryItem({
             >
                 Скопировано
             </div>
-            {isShowMenu ? <HistoryItemMenu /> : null}
+            {isShowMenu ? (
+                <HistoryItemMenu menuHistoryRUN={historyRun} />
+            ) : null}
         </div>
     );
 }

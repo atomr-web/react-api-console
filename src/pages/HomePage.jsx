@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { menuHistoryRun } from "../redux/actions";
 import Fullscreen from "react-full-screen";
 import HeaderConsole from "../components/HeaderConsole";
 import AppConsoles from "../components/AppConsoles";
@@ -10,11 +9,6 @@ import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
 
 function HomePage({ isFullScreen, menuHistoryRUN }) {
-    const historyRUN = () => {
-        let test = menuHistoryRUN();
-        console.log(test);
-    };
-
     return (
         <div>
             <Fullscreen enabled={isFullScreen}>
@@ -35,12 +29,6 @@ function HomePage({ isFullScreen, menuHistoryRUN }) {
 const mapStateToProps = (state) => {
     return {
         isFullScreen: state.fullScreen.isFullScreen,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        menuHistoryRUN: (id) => dispatch(menuHistoryRun(id)),
     };
 };
 

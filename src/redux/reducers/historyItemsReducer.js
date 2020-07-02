@@ -56,7 +56,7 @@ export const historyMenuReducer = (state = initState, action) => {
                 ...state,
                 items: state.items.map((item) =>
                     item.id === action.id
-                        ? { ...item, query: item.query }
+                        ? { ...item, isShowMenu: false }
                         : item
                 ),
             };
