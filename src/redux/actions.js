@@ -8,6 +8,7 @@ import {
     IS_SHOW_HISTORY_MENU,
     TOGGLE_HISTORY_MENU,
     MENU_HISTORY_RUN,
+    AUTH,
 } from "./types";
 
 export const allHistoryItems = () => {
@@ -73,5 +74,16 @@ export const menuHistoryRun = (id) => {
     return {
         type: MENU_HISTORY_RUN,
         id,
+    };
+};
+
+// AUTH
+
+export const auth = (login, sublogin, password) => {
+    return {
+        type: AUTH,
+        login,
+        sublogin,
+        password,
     };
 };

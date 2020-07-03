@@ -10,3 +10,8 @@ export const FULL_SCREEN_TOGGLE = "HEADER/TOGGLE_FULLSCREEN";
 // ACTION HISTORY MENU
 
 export const MENU_HISTORY_RUN = "HISTORY/MENU_RUN";
+
+// AUTH
+
+export const AUTH = "AUTH";
+export const AUTH_ERROR = "AUTH/ERROR";
