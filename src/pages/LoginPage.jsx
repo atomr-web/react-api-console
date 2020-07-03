@@ -3,35 +3,26 @@ import { connect } from "react-redux";
 import { auth } from "../redux/actions";
 import LoginFormError from "../components/LoginFormError";
 import LoginForm from "../components/LoginForm";
-import Sendsay from "sendsay-api";
 
-function LoginPage({ authReducer, state }) {
-    const sendsay = new Sendsay();
-    // sendsay
-    //     .request({ action: "pong", list: ["about.id"] })
-    //     .then(function (res) {
-    //         console.log(res);
-    //     });
+function LoginPage({ authReducer, isAuthing, authErrorText, isAuthFinished }) {
+    const [stateInputs, setStateInputs] = useState({
+        login: "",
+        sublogin: "",
+        password: "",
+    });
+
+    const handleChange = (e) => {
+        const val = e.target.value;
+        setStateInputs({
+            ...stateInputs,
+            [e.target.name]: val,
+        });
+    };
 
     const submitForm = (e) => {
-        console.log(state);
-
         e.preventDefault();
-        sendsay
-            .login({
-                login: "wildkayote@yandex.ru",
-                sublogin: "",
-                password: "JaiPrabhupad108",
-            })
-            .then(
-                () => {
-                    authReducer("wildkayote@yandex.ru", "", "JaiPrabhupad108");
-                },
-                (reason) => {
-                    console.log("error: ", reason);
-                }
-            );
-        console.log(state);
+        const { login, sublogin, password } = stateInputs;
+        authReducer(login, sublogin.length > 0 ? sublogin : "", password);
     };
 
     return (
@@ -42,8 +33,14 @@ function LoginPage({ authReducer, state }) {
                         <img className="logo" src="img/logo.svg" alt="" />
                         <div className="login-page__form-container">
                             <h1>API-консолька</h1>
-                            <LoginFormError />
-                            <LoginForm submitForm={submitForm} />
+                            {typeof authErrorText === "object" ? (
+                                <LoginFormError authErrorText={authErrorText} />
+                            ) : null}
+                            <LoginForm
+                                submitForm={submitForm}
+                                isAuthing={isAuthing}
+                                handleChange={handleChange}
+                            />
                         </div>
                         <a
                             href="https://github.com/atomr-web/react-api-console"
@@ -61,7 +58,10 @@ function LoginPage({ authReducer, state }) {
 
 const mapStateToProps = (state) => {
     return {
-        state: state.auth.state.authData,
+        state: state,
+        isAuthing: state.auth.isAuthing,
+        authErrorText: state.auth.authErrorText,
+        isAuthFinished: state.auth.isAuthFinished,
     };
 };
 

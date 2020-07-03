@@ -8,8 +8,13 @@ import {
     IS_SHOW_HISTORY_MENU,
     TOGGLE_HISTORY_MENU,
     MENU_HISTORY_RUN,
-    AUTH,
+    AUTH_ISAUTHING,
+    AUTH_SUCCESS,
+    AUTH_FAILURE,
+    AUTH_FINISHED,
 } from "./types";
+
+import Sendsay from "sendsay-api";
 
 export const allHistoryItems = () => {
     return {
@@ -78,12 +83,55 @@ export const menuHistoryRun = (id) => {
 };
 
 // AUTH
+const sendsay = new Sendsay();
 
-export const auth = (login, sublogin, password) => {
+export const auth = (login, sublogin, password) => (dispatch) => {
+    const authUser = sendsay.login({
+        login: login,
+        sublogin: sublogin.length ? sublogin : "",
+        password: password,
+    });
+
+    const reqPong = authUser.then(
+        () => sendsay.request({ action: "pong" }),
+        dispatch(isAuthing(true)),
+        dispatch(authFailure(false, ""))
+    );
+
+    reqPong
+        .then((res) => dispatch(authSuccess(login, sublogin, password, true)))
+        .catch((err) => dispatch(authFailure(true, err)), console.log("Error"))
+        .then(() => dispatch(isAuthing(false)));
+};
+
+export const isAuthing = (isAuthing) => {
     return {
-        type: AUTH,
+        type: AUTH_ISAUTHING,
+        isAuthing,
+    };
+};
+
+export const authSuccess = (login, sublogin, password, authStatus) => {
+    return {
+        type: AUTH_SUCCESS,
         login,
         sublogin,
         password,
+        authStatus,
+    };
+};
+
+export const authFailure = (authStatus, authErrorText) => {
+    return {
+        type: AUTH_FAILURE,
+        authStatus,
+        authErrorText,
+    };
+};
+
+export const isAuthFinished = (isAuthFinished) => {
+    return {
+        type: AUTH_FINISHED,
+        isAuthFinished,
     };
 };
