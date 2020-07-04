@@ -5,10 +5,13 @@ import "./assets/css/style.css";
 import "./App.css";
 import { connect } from "react-redux";
 
-function App({ isAuth }) {
-    console.log(isAuth);
-
-    return <div className="App">{isAuth ? <HomePage /> : <LoginPage />}</div>;
+function App({ isAuth, state }) {
+    // return <div className="App">{isAuth ? <HomePage /> : <LoginPage />}</div>;
+    return (
+        <div className="App">
+            <HomePage />
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

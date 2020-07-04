@@ -2,11 +2,10 @@ import {
     AUTH_ISAUTHING,
     AUTH_SUCCESS,
     AUTH_FAILURE,
-    AUTH_FINISHED,
+    AUTH_LOGOUT,
 } from "../types";
 
 const initState = {
-    isAuth: false,
     isAuthing: false,
     isAuthFinished: false,
     authStatus: "",
@@ -16,6 +15,7 @@ const initState = {
         sublogin: "",
         password: "",
     },
+    user: "",
 };
 
 export const authReducer = (state = initState, action) => {
@@ -43,10 +43,16 @@ export const authReducer = (state = initState, action) => {
                 authStatus: (state.authStatus = false),
                 authErrorText: (state.authErrorText = action.authErrorText),
             };
-        case AUTH_FINISHED:
+        case AUTH_LOGOUT:
             return {
                 ...state,
-                isAuthFinished: (state.isAuthFinished = action.isAuthFinished),
+                authStatus: (action.authStatus = false),
+                authData: {
+                    ...state.authData,
+                    login: "",
+                    sublogin: "",
+                    password: "",
+                },
             };
         default:
             return state;

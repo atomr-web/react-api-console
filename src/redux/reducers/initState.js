@@ -6,7 +6,7 @@ export const initState = {
             name: "pong",
             isCopied: false,
             isShowMenu: false,
-            query: `{action: "pong"}`,
+            query: `{"action": "pong"}`,
         },
         {
             id: 1,
@@ -14,7 +14,7 @@ export const initState = {
             name: "pong 1",
             isCopied: false,
             isShowMenu: false,
-            query: `{action: "pong 1"}`,
+            query: `{"action": "pong 1"}`,
         },
     ],
 };

@@ -9,9 +9,9 @@ import {
     TOGGLE_HISTORY_MENU,
     MENU_HISTORY_RUN,
     AUTH_ISAUTHING,
+    AUTH_LOGOUT,
     AUTH_SUCCESS,
     AUTH_FAILURE,
-    AUTH_FINISHED,
 } from "./types";
 
 import Sendsay from "sendsay-api";
@@ -92,16 +92,29 @@ export const auth = (login, sublogin, password) => (dispatch) => {
         password: password,
     });
 
-    const reqPong = authUser.then(
-        () => sendsay.request({ action: "pong" }),
-        dispatch(isAuthing(true)),
-        dispatch(authFailure(false, ""))
-    );
+    const reqPong = authUser.then(() => {
+        sendsay.request({ action: "pong" });
+    });
 
     reqPong
-        .then((res) => dispatch(authSuccess(login, sublogin, password, true)))
-        .catch((err) => dispatch(authFailure(true, err)), console.log("Error"))
-        .then(() => dispatch(isAuthing(false)));
+        .then(() => {
+            dispatch(authFailure(false, ""));
+            dispatch(authToggleStatus(true, login, sublogin, password));
+        })
+        .catch(
+            (err) => dispatch(authFailure(true, err)),
+            dispatch(isAuthing(true))
+        );
+};
+
+export const logout = () => {
+    return {
+        type: AUTH_LOGOUT,
+        login: "",
+        sublogin: "",
+        password: "",
+        authStatus: false,
+    };
 };
 
 export const isAuthing = (isAuthing) => {
@@ -111,13 +124,13 @@ export const isAuthing = (isAuthing) => {
     };
 };
 
-export const authSuccess = (login, sublogin, password, authStatus) => {
+export const authToggleStatus = (authStatus, login, sublogin, password) => {
     return {
         type: AUTH_SUCCESS,
+        authStatus,
         login,
         sublogin,
         password,
-        authStatus,
     };
 };
 
@@ -126,12 +139,5 @@ export const authFailure = (authStatus, authErrorText) => {
         type: AUTH_FAILURE,
         authStatus,
         authErrorText,
-    };
-};
-
-export const isAuthFinished = (isAuthFinished) => {
-    return {
-        type: AUTH_FINISHED,
-        isAuthFinished,
     };
 };

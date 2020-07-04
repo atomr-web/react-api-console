@@ -13,8 +13,7 @@ export const MENU_HISTORY_RUN = "HISTORY/MENU_RUN";
 
 // AUTH
 
-export const AUTH = "AUTH";
+export const AUTH_LOGOUT = "AUTH/AUTH_LOGOUT";
 export const AUTH_ISAUTHING = "AUTH/AUTH_ISAUTHING";
-export const AUTH_FINISHED = "AUTH/AUTH_FINISHED";
 export const AUTH_SUCCESS = "AUTH/SUCCESS";
 export const AUTH_FAILURE = "AUTH/FAILURE";
