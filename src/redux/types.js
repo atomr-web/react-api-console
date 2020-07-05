@@ -17,3 +17,7 @@ export const AUTH_LOGOUT = "AUTH/AUTH_LOGOUT";
 export const AUTH_ISAUTHING = "AUTH/AUTH_ISAUTHING";
 export const AUTH_SUCCESS = "AUTH/SUCCESS";
 export const AUTH_FAILURE = "AUTH/FAILURE";
+
+// CONSOLE
+
+export const SUBMIT_REQUSET = "CONSOLE/SUBMIT";

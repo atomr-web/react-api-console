@@ -7,7 +7,6 @@ import {
 
 const initState = {
     isAuthing: false,
-    isAuthFinished: false,
     authStatus: "",
     authErrorText: "",
     authData: {

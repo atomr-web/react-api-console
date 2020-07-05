@@ -6,6 +6,9 @@ function AppConsoles() {
     return (
         <div className="console">
             <ConsoleRequest />
+            <div className="drag-consoles">
+                <span></span>
+            </div>
             <ConsoleResponse />
         </div>
     );

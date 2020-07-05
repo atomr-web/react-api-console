@@ -17,6 +17,12 @@ export const initState = {
             query: `{"action": "pong 1"}`,
         },
     ],
+    console: {
+        request: {
+            isStatus: false,
+            text: "",
+        },
+    },
 };
 
 export default initState;
