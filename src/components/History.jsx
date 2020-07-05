@@ -18,7 +18,7 @@ function History({ items }) {
                                       name={item.name}
                                       isCopied={item.isCopied}
                                       isShowMenu={item.isShowMenu}
-                                      query={item.query}
+                                      response={item.response}
                                   />
                               );
                           })

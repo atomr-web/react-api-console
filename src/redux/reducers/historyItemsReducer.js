@@ -38,7 +38,7 @@ export const historyItemReducer = (state = initState, action) => {
                         name: action.name,
                         isCopied: false,
                         isShowMenu: false,
-                        query: action.query,
+                        request: action.request,
                     },
                 ],
             });

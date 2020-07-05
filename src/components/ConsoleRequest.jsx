@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import AceEditor from "react-ace";
+import { connect } from "react-redux";
+import { request } from "../redux/actions/consoleAction";
 
-function ConsoleRequest() {
+function ConsoleRequest({ request, state }) {
     const [isValid, setIsValid] = useState(true);
     const [value, setValue] = useState("");
+
+    console.log(state);
 
     const ohChange = (val) => {
         let newVal = "";
@@ -51,4 +55,16 @@ function ConsoleRequest() {
     );
 }
 
-export default ConsoleRequest;
+const mapSTateToProps = (state) => {
+    return {
+        state: state,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        request: (isStatus, text) => dispatch(request(isStatus, text)),
+    };
+};
+
+export default connect(mapSTateToProps, mapDispatchToProps)(ConsoleRequest);

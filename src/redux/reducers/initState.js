@@ -6,7 +6,8 @@ export const initState = {
             name: "pong",
             isCopied: false,
             isShowMenu: false,
-            query: `{"action": "pong"}`,
+            request: `{"action": "pong"}`,
+            response: "",
         },
         {
             id: 1,
@@ -15,14 +16,9 @@ export const initState = {
             isCopied: false,
             isShowMenu: false,
             query: `{"action": "pong 1"}`,
+            response: "",
         },
     ],
-    console: {
-        request: {
-            isStatus: false,
-            text: "",
-        },
-    },
 };
 
 export default initState;

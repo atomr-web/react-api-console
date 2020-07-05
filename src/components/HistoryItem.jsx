@@ -14,7 +14,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 function HistoryItem({
     status,
     name,
-    query,
+    response,
     id,
     toogleCopyText,
     isShowMenu,
@@ -36,7 +36,7 @@ function HistoryItem({
 
     return (
         <div className="header-history__item">
-            <CopyToClipboard text={query} onCopy={() => onCopyClipboard(id)}>
+            <CopyToClipboard text={response} onCopy={() => onCopyClipboard(id)}>
                 <div>
                     <span className="history-item__status">
                         {status === true ? (
