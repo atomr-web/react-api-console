@@ -23,7 +23,6 @@ function ConsoleRequest({ consoleRequest, state }) {
     const onSubmit = (e) => {
         e.preventDefault();
         consoleRequest(value);
-        console.log(state);
     };
 
     return (

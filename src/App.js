@@ -22,7 +22,6 @@ function App({ isAuth, auth, isAuthing, authErrorText, authToggleStatus }) {
 
     return (
         <div className="App">
-            {/* <HomePage /> */}
             {isAuth ? (
                 <HomePage />
             ) : (

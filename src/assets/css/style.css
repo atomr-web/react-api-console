@@ -747,6 +747,10 @@ header .row__item {
     box-shadow: 0px 0px 5px rgba(207, 44, 0, 0.5);
 }
 
+.ace_placeholder {
+    padding: 0 !important;
+}
+
 .console > div {
     width: calc(100% - 2px);
 }
@@ -758,25 +762,6 @@ header .row__item {
     align-items: center;
     justify-content: space-between;
 }
-
-/* .ace_content,
-.ace_text-layer {
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.ace_layer {
-    width: calc(100% - 20px);
-}
-
-.ace_text-layer {
-    top: 10px !important;
-    left: 10px !important;
-}
-
-.ace_placeholder {
-    top: 11px;
-} */
 
 .drag-consoles {
     width: auto !important;
