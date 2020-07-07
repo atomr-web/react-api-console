@@ -4,6 +4,7 @@ import Fullscreen from "react-full-screen";
 import HeaderConsole from "../components/HeaderConsole";
 import AppConsoles from "../components/AppConsoles";
 import AppBottom from "../components/AppBottom";
+import DeadSession from "../components/DeadSession";
 
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
@@ -15,12 +16,11 @@ function HomePage({ isFullScreen, menuHistoryRUN }) {
                 <div className="app-container">
                     <HeaderConsole />
                     <main>
-                        <section className="console-container">
-                            <AppConsoles />
-                            <AppBottom />
-                        </section>
+                        <AppConsoles />
+                        <AppBottom />
                     </main>
                 </div>
+                {/* <DeadSession /> */}
             </Fullscreen>
         </div>
     );

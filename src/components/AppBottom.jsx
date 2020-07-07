@@ -4,7 +4,7 @@ import IconFromat from "./icons/IconFromat";
 function AppBottom() {
     return (
         <div className="console__bottom">
-            <button type="submit" form="request-form">
+            <button type="submit" className="blue-btn" form="request-form">
                 Отправить
             </button>
             <a

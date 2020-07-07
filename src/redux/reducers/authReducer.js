@@ -12,6 +12,8 @@ const initState = {
     authData: {
         login: null,
         sublogin: null,
+        sendsay_session:
+            "x_1592465705149159/x_1592465705149159:cXDbiFUbL46igvueclxZAw2Yv/K5RQo4-XEvTYUUlJeg:1593624564797571970.24957782644403.496945432337",
     },
 };
 
@@ -30,6 +32,7 @@ export const authReducer = (state = initState, action) => {
                     ...state.authData,
                     login: action.login,
                     sublogin: action.sublogin,
+                    session: action.session,
                 },
             };
         case AUTH_FAILURE:
@@ -47,6 +50,8 @@ export const authReducer = (state = initState, action) => {
                     ...state.authData,
                     login: "",
                     sublogin: "",
+                    session: "",
+                    sendsay_session: "",
                 },
             };
         default:

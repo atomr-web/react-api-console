@@ -5,12 +5,13 @@ import {
     AUTH_FAILURE,
 } from "../types";
 
-export const logout = () => {
+export const logoutAction = () => {
     return {
         type: AUTH_LOGOUT,
+        authStatus: false,
         login: "",
         sublogin: "",
-        authStatus: false,
+        sendsay_session: "",
     };
 };
 
@@ -21,12 +22,18 @@ export const isAuthing = (isAuthing) => {
     };
 };
 
-export const authToggleStatus = (authStatus, login, sublogin) => {
+export const authToggleStatus = (
+    authStatus,
+    login,
+    sublogin,
+    sendsay_session
+) => {
     return {
         type: AUTH_SUCCESS,
         authStatus,
         login,
         sublogin,
+        sendsay_session,
     };
 };
 

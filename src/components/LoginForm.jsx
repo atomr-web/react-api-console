@@ -43,7 +43,7 @@ function LoginForm({ submitForm, isAuthing, handleChange }) {
             <button
                 type="submit"
                 disabled={isAuthing}
-                className={isAuthing ? "submitting" : ""}
+                className={`blue-btn ${isAuthing ? "submitting" : ""}`}
             >
                 <i className="spinner"></i>Войти
             </button>

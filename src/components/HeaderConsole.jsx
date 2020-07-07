@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toggleFullScreen } from "../redux/actions/screenToggleActions";
-import { logout } from "../redux/actions/authActions";
+import { logout } from "../redux/actions";
 import logo from "../assets/img/logo.svg";
 import IconLogout from "./icons/IconLogout";
 import IconFullScreenTrue from "./icons/IconFullScreenTrue";

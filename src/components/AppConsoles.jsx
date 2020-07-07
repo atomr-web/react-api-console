@@ -3,21 +3,24 @@ import ConsoleRequest from "./ConsoleRequest";
 import ConsoleResponse from "./ConsoleResponse";
 import { connect } from "react-redux";
 
-function AppConsoles({ state }) {
+function AppConsoles({ response, isSuccess }) {
+    response = JSON.stringify(response, null, "\t");
+
     return (
         <div className="console">
             <ConsoleRequest />
             <div className="drag-consoles">
                 <span></span>
             </div>
-            <ConsoleResponse />
+            <ConsoleResponse response={response} isSuccess={isSuccess} />
         </div>
     );
 }
 
 const mapStateToProps = (state) => {
     return {
-        state,
+        response: state.console.response,
+        isSuccess: state.console.isSuccess,
     };
 };
 

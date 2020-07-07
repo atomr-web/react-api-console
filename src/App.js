@@ -6,27 +6,23 @@ import "./assets/css/style.css";
 import "./App.css";
 import { connect } from "react-redux";
 
-function App({
-    isAuth,
-    auth,
-    isAuthing,
-    authErrorText,
-    state,
-    authToggleStatus,
-}) {
-    console.log(state);
-
+function App({ isAuth, auth, isAuthing, authErrorText, authToggleStatus }) {
     useEffect(() => {
-        let login = localStorage.getItem("login");
-        let sublogin = localStorage.getItem("sublogin");
+        if (localStorage.getItem("user") !== null) {
+            let user = localStorage.getItem("user");
+            user = JSON.parse(user);
 
-        login !== null
-            ? authToggleStatus(true, login, sublogin)
-            : authToggleStatus(false, null, null);
-    }, [authToggleStatus]);
+            const login = user.login;
+            const sublogin = user.sublogin;
+            const sendsay_session = user.sendsay_session;
+
+            authToggleStatus(true, login, sublogin, sendsay_session);
+        }
+    }, []);
 
     return (
         <div className="App">
+            {/* <HomePage /> */}
             {isAuth ? (
                 <HomePage />
             ) : (
@@ -53,8 +49,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         auth: (login, sublogin, password) =>
             dispatch(auth(login, sublogin, password)),
-        authToggleStatus: (authStatus, login, sublogin) =>
-            dispatch(authToggleStatus(authStatus, login, sublogin)),
+        authToggleStatus: (authStatus, login, sublogin, sendsay_session) =>
+            dispatch(
+                authToggleStatus(authStatus, login, sublogin, sendsay_session)
+            ),
     };
 };
 

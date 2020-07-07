@@ -32,7 +32,7 @@ function LoginPage({ auth, isAuthing, authErrorText }) {
                         <img className="logo" src="img/logo.svg" alt="" />
                         <div className="login-page__form-container">
                             <h1>API-консолька</h1>
-                            {typeof authErrorText === "object" ? (
+                            {authErrorText !== null ? (
                                 <LoginFormError authErrorText={authErrorText} />
                             ) : null}
                             <LoginForm

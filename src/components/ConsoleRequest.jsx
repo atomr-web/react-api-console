@@ -23,6 +23,7 @@ function ConsoleRequest({ consoleRequest, state }) {
     const onSubmit = (e) => {
         e.preventDefault();
         consoleRequest(value);
+        console.log(state);
     };
 
     return (
@@ -30,26 +31,33 @@ function ConsoleRequest({ consoleRequest, state }) {
             <div className="console__title">
                 <span>Запрос:</span>
             </div>
-            <form action="#" method="#" id="request-form" onSubmit={onSubmit}>
-                <AceEditor
-                    placeholder="Enter the JSON"
-                    onChange={ohChange}
-                    mode="json"
-                    theme="github"
-                    fontSize={14}
-                    showGutter={false}
-                    highlightActiveLine={false}
-                    name="request"
-                    editorProps={{
-                        $blockScrolling: true,
-                    }}
-                    width="100%"
-                    setOptions={{
-                        showLineNumbers: true,
-                        tabSize: 2,
-                    }}
-                />
-            </form>
+            <div className="console-container">
+                <form
+                    action="#"
+                    method="#"
+                    id="request-form"
+                    onSubmit={onSubmit}
+                >
+                    <AceEditor
+                        placeholder="Enter the JSON"
+                        onChange={ohChange}
+                        mode="json"
+                        theme="github"
+                        fontSize={14}
+                        showGutter={false}
+                        highlightActiveLine={false}
+                        name="request"
+                        editorProps={{
+                            $blockScrolling: true,
+                        }}
+                        width="100%"
+                        setOptions={{
+                            showLineNumbers: true,
+                            tabSize: 2,
+                        }}
+                    />
+                </form>
+            </div>
         </div>
     );
 }

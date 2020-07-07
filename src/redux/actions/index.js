@@ -1,44 +1,63 @@
-import { authFailure, authToggleStatus, isAuthing } from "./authActions";
+import {
+    authFailure,
+    authToggleStatus,
+    isAuthing,
+    logoutAction,
+} from "./authActions";
 import { requestSuccess, requestFailure } from "./consoleActions";
 import {} from "./historyActions";
 import {} from "./screenToggleActions";
 import sendsay from "../api";
 
 // AUTH
-export const auth = (login, sublogin, password) => (dispatch) => {
+export const auth = (login, sublogin, password, sendsay_session) => (
+    dispatch
+) => {
     sublogin = sublogin.length ? sublogin : "";
     dispatch(isAuthing(true));
 
-    const authUser = sendsay.login({
+    const authUser = sendsay.request({
+        action: "login",
         login: login,
         sublogin: sublogin,
-        password: password,
+        passwd: password,
     });
 
-    // const reqPong = authUser.then((res) => {
-    //     sendsay.request({ action: "pong" });
-    // });
-
     authUser
-        .then(() => {
-            dispatch(authFailure(false, ""));
-            dispatch(authToggleStatus(true, login, sublogin));
-            localStorage.setItem("login", login);
-            sublogin.length > 0 && localStorage.setItem("sublogin", sublogin);
+        .then((res) => {
+            dispatch(authFailure(false, null));
+            dispatch(authToggleStatus(true, login, sublogin, sendsay_session));
             dispatch(isAuthing(false));
+            localStorage.setItem(
+                "user",
+                JSON.stringify({
+                    login: login,
+                    sublogin: sublogin,
+                    sendsay_session: res.session,
+                })
+            );
         })
         .catch((err) => {
+            console.log(err);
+
             dispatch(authFailure(true, err));
-            localStorage.removeItem("login");
-            localStorage.removeItem("sublogin");
             dispatch(isAuthing(false));
+            localStorage.removeItem("user");
         });
+};
+
+export const logout = () => (dispatch) => {
+    dispatch(logoutAction());
+    delete localStorage.user;
 };
 
 // CONSOLE
 export const consoleRequest = (requestObj) => (dispatch) => {
+    let session = localStorage.getItem("user");
+    session = session !== null && JSON.parse(session).sendsay_session;
+
     sendsay
-        .request(requestObj)
+        .request({ ...requestObj, session: session })
         .then((res) => dispatch(requestSuccess(requestObj, res)))
         .catch((err) => dispatch(requestFailure(requestObj, err)));
 };
