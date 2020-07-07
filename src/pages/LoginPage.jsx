@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { auth } from "../redux/actions";
 import LoginFormError from "../components/LoginFormError";
 import LoginForm from "../components/LoginForm";
 
-function LoginPage({ authReducer, isAuthing, authErrorText, isAuthFinished }) {
+function LoginPage({ auth, isAuthing, authErrorText }) {
     const [stateInputs, setStateInputs] = useState({
         login: "",
         sublogin: "",
@@ -21,8 +19,9 @@ function LoginPage({ authReducer, isAuthing, authErrorText, isAuthFinished }) {
 
     const submitForm = (e) => {
         e.preventDefault();
+
         const { login, sublogin, password } = stateInputs;
-        authReducer(login, sublogin.length > 0 ? sublogin : "", password);
+        auth(login, sublogin.length > 0 ? sublogin : "", password);
     };
 
     return (
@@ -56,20 +55,4 @@ function LoginPage({ authReducer, isAuthing, authErrorText, isAuthFinished }) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        state: state,
-        isAuthing: state.auth.isAuthing,
-        authErrorText: state.auth.authErrorText,
-        isAuthFinished: state.auth.isAuthFinished,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        authReducer: (login, sublogin, password) =>
-            dispatch(auth(login, sublogin, password)),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default LoginPage;

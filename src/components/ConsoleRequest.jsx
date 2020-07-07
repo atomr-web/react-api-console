@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import AceEditor from "react-ace";
 import { connect } from "react-redux";
-import { request } from "../redux/actions/consoleAction";
+import { consoleRequest } from "../redux/actions";
 
-function ConsoleRequest({ request, state }) {
+function ConsoleRequest({ consoleRequest, state }) {
     const [isValid, setIsValid] = useState(true);
     const [value, setValue] = useState("");
-
-    console.log(state);
 
     const ohChange = (val) => {
         let newVal = "";
@@ -24,6 +22,7 @@ function ConsoleRequest({ request, state }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        consoleRequest(value);
     };
 
     return (
@@ -55,7 +54,7 @@ function ConsoleRequest({ request, state }) {
     );
 }
 
-const mapSTateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         state: state,
     };
@@ -63,8 +62,8 @@ const mapSTateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        request: (isStatus, text) => dispatch(request(isStatus, text)),
+        consoleRequest: (value) => dispatch(consoleRequest(value)),
     };
 };
 
-export default connect(mapSTateToProps, mapDispatchToProps)(ConsoleRequest);
+export default connect(mapStateToProps, mapDispatchToProps)(ConsoleRequest);

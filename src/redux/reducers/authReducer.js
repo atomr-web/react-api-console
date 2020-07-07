@@ -7,14 +7,12 @@ import {
 
 const initState = {
     isAuthing: false,
-    authStatus: "",
-    authErrorText: "",
+    authStatus: false,
+    authErrorText: null,
     authData: {
-        login: "",
-        sublogin: "",
-        password: "",
+        login: null,
+        sublogin: null,
     },
-    user: "",
 };
 
 export const authReducer = (state = initState, action) => {
@@ -32,7 +30,6 @@ export const authReducer = (state = initState, action) => {
                     ...state.authData,
                     login: action.login,
                     sublogin: action.sublogin,
-                    password: action.password,
                 },
             };
         case AUTH_FAILURE:
@@ -50,7 +47,6 @@ export const authReducer = (state = initState, action) => {
                     ...state.authData,
                     login: "",
                     sublogin: "",
-                    password: "",
                 },
             };
         default:

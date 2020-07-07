@@ -1,12 +1,32 @@
 import {
-    ALL_ITEMS,
     ADD_HISTORY_ITEM,
     TOGGLE_HISTORY_MENU,
     TOGGLE_COPY_TEXT,
     MENU_HISTORY_RUN,
 } from "../types";
 
-import initState from "./initState";
+const initState = {
+    items: [
+        {
+            id: 0,
+            status: true,
+            name: "pong",
+            isCopied: false,
+            isShowMenu: false,
+            query: `{"action": "pong"}`,
+            response: "",
+        },
+        {
+            id: 1,
+            status: false,
+            name: "pong 1",
+            isCopied: false,
+            isShowMenu: false,
+            query: `{"action": "pong 1"}`,
+            response: "",
+        },
+    ],
+};
 
 export const historyItemReducer = (state = initState, action) => {
     switch (action.type) {
@@ -25,7 +45,7 @@ export const historyItemReducer = (state = initState, action) => {
                 items: state.items.map((item) =>
                     item.id === action.id
                         ? { ...item, isShowMenu: action.isShowMenu }
-                        : item
+                        : { ...item, isShowMenu: false }
                 ),
             };
         case ADD_HISTORY_ITEM:
@@ -42,8 +62,6 @@ export const historyItemReducer = (state = initState, action) => {
                     },
                 ],
             });
-        case ALL_ITEMS:
-            return state;
         default:
             return state;
     }

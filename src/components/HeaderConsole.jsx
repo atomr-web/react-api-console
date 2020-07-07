@@ -1,13 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
-import { toggleFullScreen, logout } from "../redux/actions";
+import { toggleFullScreen } from "../redux/actions/screenToggleActions";
+import { logout } from "../redux/actions/authActions";
 import logo from "../assets/img/logo.svg";
 import IconLogout from "./icons/IconLogout";
 import IconFullScreenTrue from "./icons/IconFullScreenTrue";
 import IconFullScreenFalse from "./icons/IconFullScreenFalse";
 import History from "./History";
 
-function HeaderConsole({ toggleFullScreen, isFullScreen, logout }) {
+function HeaderConsole({
+    toggleFullScreen,
+    isFullScreen,
+    logout,
+    items,
+    authData,
+}) {
+    const login = authData.login;
+    const sublogin = authData.sublogin;
+
     return (
         <div>
             <header>
@@ -18,8 +28,12 @@ function HeaderConsole({ toggleFullScreen, isFullScreen, logout }) {
                     </div>
                     <div className="row__item">
                         <div className="header__login">
-                            <span className="login">some@eamil.com</span>
-                            <span className="sublogin">sublogin</span>
+                            <span className="login">{login}</span>
+                            {sublogin !== null && sublogin.length > 0 && (
+                                <span className="sublogin">
+                                    {authData.sublogin}
+                                </span>
+                            )}
                         </div>
                         <button
                             className="header__logout"
@@ -40,7 +54,7 @@ function HeaderConsole({ toggleFullScreen, isFullScreen, logout }) {
                         </button>
                     </div>
                 </div>
-                <History />
+                <History items={items} />
             </header>
         </div>
     );
@@ -49,6 +63,8 @@ function HeaderConsole({ toggleFullScreen, isFullScreen, logout }) {
 const mapStateToProps = (state) => {
     return {
         isFullScreen: state.isFullScreen,
+        items: state.items.items,
+        authData: state.auth.authData,
     };
 };
 

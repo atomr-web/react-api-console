@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import IconHistoryClear from "./icons/IconHistoryClear";
 import HistoryItem from "./HistoryItem";
 
@@ -18,7 +17,7 @@ function History({ items }) {
                                       name={item.name}
                                       isCopied={item.isCopied}
                                       isShowMenu={item.isShowMenu}
-                                      response={item.response}
+                                      query={item.query}
                                   />
                               );
                           })
@@ -30,10 +29,4 @@ function History({ items }) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        items: state.items.items,
-    };
-};
-
-export default connect(mapStateToProps, null)(History);
+export default History;

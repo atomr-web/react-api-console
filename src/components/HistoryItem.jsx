@@ -4,7 +4,7 @@ import {
     toggleCopyText,
     toggleHistoryMenu,
     menuHistoryRun,
-} from "../redux/actions";
+} from "../redux/actions/historyActions";
 import IconHistoryToggle from "./icons/IconHistoryToggle";
 import IconHistoryStatusTrue from "./icons/IconHistoryStatusTrue";
 import IconHistoryStatusFalse from "./icons/IconHistoryStatusFalse";
@@ -14,8 +14,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 function HistoryItem({
     status,
     name,
-    response,
     id,
+    query,
     toogleCopyText,
     isShowMenu,
     isCopied,
@@ -36,7 +36,7 @@ function HistoryItem({
 
     return (
         <div className="header-history__item">
-            <CopyToClipboard text={response} onCopy={() => onCopyClipboard(id)}>
+            <CopyToClipboard text={query} onCopy={() => onCopyClipboard(id)}>
                 <div>
                     <span className="history-item__status">
                         {status === true ? (

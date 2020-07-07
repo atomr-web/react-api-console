@@ -2,7 +2,8 @@ import React from "react";
 
 function LoginFormError(authErrorText) {
     const error = authErrorText.authErrorText;
-    delete error["request"];
+    error !== null && delete error["request"];
+
     const errText = JSON.stringify(error);
 
     return (

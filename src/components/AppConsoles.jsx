@@ -1,8 +1,9 @@
 import React from "react";
 import ConsoleRequest from "./ConsoleRequest";
 import ConsoleResponse from "./ConsoleResponse";
+import { connect } from "react-redux";
 
-function AppConsoles() {
+function AppConsoles({ state }) {
     return (
         <div className="console">
             <ConsoleRequest />
@@ -14,4 +15,10 @@ function AppConsoles() {
     );
 }
 
-export default AppConsoles;
+const mapStateToProps = (state) => {
+    return {
+        state,
+    };
+};
+
+export default connect(mapStateToProps, null)(AppConsoles);
