@@ -5,6 +5,7 @@ import {
     TOGGLE_HISTORY_MENU,
     IS_SHOW_HISTORY_MENU,
     MENU_HISTORY_RUN,
+    REPLACE_HISTORY_ITEM,
 } from "../types";
 
 export const addHistoryItem = (id, status, name, query) => {
@@ -14,6 +15,18 @@ export const addHistoryItem = (id, status, name, query) => {
         status,
         name,
         query,
+    };
+};
+
+export const replaceHistoryItem = (item) => {
+    return {
+        type: REPLACE_HISTORY_ITEM,
+        id: item.id,
+        status: item.status,
+        name: item.name,
+        isCopied: false,
+        isShowMenu: false,
+        query: item.query,
     };
 };
 

@@ -33,7 +33,6 @@ export const authToggleStatus = (
         authStatus,
         login,
         sublogin,
-        sendsay_session,
     };
 };
 

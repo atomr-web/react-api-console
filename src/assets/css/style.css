@@ -356,6 +356,11 @@ button.blue-btn.submitting .spinner {
     align-items: center;
 }
 
+.btn-transparent:disabled {
+    opacity: 0.3;
+    cursor: initial;
+}
+
 .btn-transparent svg {
     margin-right: 8px;
 }
@@ -370,6 +375,12 @@ button.blue-btn.submitting .spinner {
 .btn-transparent:focus svg path {
     color: #0055fb;
     stroke: #0055fb;
+}
+
+.btn-transparent:disabled:hover,
+.btn-transparent:disabled:hover svg path {
+    color: #0d0d0d;
+    stroke: #0d0d0d;
 }
 
 /* END input styles */
@@ -435,6 +446,7 @@ button.blue-btn.submitting .spinner {
     opacity: 0.5;
     font-size: 12px;
     line-height: 20px;
+    word-break: break-all;
 }
 
 .login-form .row {

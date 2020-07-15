@@ -20,9 +20,11 @@ function ConsoleResponse({ response, isSuccess }) {
                     name="response"
                     editorProps={{ $blockScrolling: true }}
                     autoScrollEditorIntoView={true}
-                    // maxLines={1000}
                     width="100%"
                     readOnly={true}
+                    setOptions={{
+                        useWorker: false,
+                    }}
                 />
             </div>
         </div>

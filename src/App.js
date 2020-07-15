@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import { auth, isAuthing, authToggleStatus } from "./redux/actions";
+import { auth, authToggleStatus, checkAuth } from "./redux/actions";
+import { connect } from "react-redux";
 import "./assets/css/style.css";
 import "./App.css";
-import { connect } from "react-redux";
 
-function App({ isAuth, auth, isAuthing, authErrorText, authToggleStatus }) {
+function App({ isAuth, auth, isAuthing, authErrorText, checkAuth }) {
     useEffect(() => {
         if (localStorage.getItem("user") !== null) {
             let user = localStorage.getItem("user");
@@ -16,9 +16,9 @@ function App({ isAuth, auth, isAuthing, authErrorText, authToggleStatus }) {
             const sublogin = user.sublogin;
             const sendsay_session = user.sendsay_session;
 
-            authToggleStatus(true, login, sublogin, sendsay_session);
+            checkAuth(login, sublogin, sendsay_session);
         }
-    }, []);
+    }, [checkAuth]);
 
     return (
         <div className="App">
@@ -52,6 +52,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(
                 authToggleStatus(authStatus, login, sublogin, sendsay_session)
             ),
+        checkAuth: (login, sublogin, sendsay_session) =>
+            dispatch(checkAuth(login, sublogin, sendsay_session)),
     };
 };
 

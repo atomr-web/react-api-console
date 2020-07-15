@@ -1,11 +1,16 @@
 import React from "react";
 import IconFromat from "./icons/IconFromat";
 
-function AppBottom() {
+function AppBottom({ isValid, formatRequest, isRequesting }) {
     return (
         <div className="console__bottom">
-            <button type="submit" className="blue-btn" form="request-form">
-                Отправить
+            <button
+                type="submit"
+                className={`blue-btn ${isRequesting ? "submitting" : ""}`}
+                form="request-form"
+                disabled={!isValid}
+            >
+                <i className="spinner"></i>Отправить
             </button>
             <a
                 href="https://github.com/atomr-web/react-api-console"
@@ -14,7 +19,11 @@ function AppBottom() {
             >
                 @react-api-console
             </a>
-            <button className="btn-transparent">
+            <button
+                className="btn-transparent"
+                disabled={!isValid || isRequesting}
+                onClick={formatRequest}
+            >
                 <IconFromat />
                 Форматировать
             </button>

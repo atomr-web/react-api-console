@@ -1,14 +1,25 @@
 import React from "react";
 import ConsoleRequest from "./ConsoleRequest";
 import ConsoleResponse from "./ConsoleResponse";
-import { connect } from "react-redux";
 
-function AppConsoles({ response, isSuccess }) {
+function AppConsoles({
+    request,
+    response,
+    isSuccess,
+    submitRequest,
+    ohChange,
+    isValid,
+    value,
+}) {
     response = JSON.stringify(response, null, "\t");
-
     return (
         <div className="console">
-            <ConsoleRequest />
+            <ConsoleRequest
+                submitRequest={submitRequest}
+                ohChange={ohChange}
+                isValid={isValid}
+                value={value}
+            />
             <div className="drag-consoles">
                 <span></span>
             </div>
@@ -17,11 +28,4 @@ function AppConsoles({ response, isSuccess }) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        response: state.console.response,
-        isSuccess: state.console.isSuccess,
-    };
-};
-
-export default connect(mapStateToProps, null)(AppConsoles);
+export default AppConsoles;

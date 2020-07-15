@@ -1,30 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import AceEditor from "react-ace";
-import { connect } from "react-redux";
-import { consoleRequest } from "../redux/actions";
 
-function ConsoleRequest({ consoleRequest, state }) {
-    const [isValid, setIsValid] = useState(true);
-    const [value, setValue] = useState("");
-
-    const ohChange = (val) => {
-        let newVal = "";
-        try {
-            newVal = JSON.parse(val);
-            setIsValid(true);
-            setValue(newVal);
-        } catch (e) {
-            setIsValid(false);
-            setValue("");
-            return false;
-        }
-    };
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        consoleRequest(value);
-    };
-
+function ConsoleRequest({ submitRequest, ohChange, isValid, value }) {
     return (
         <div className={`console__item ${isValid ? "" : "console_error"}`}>
             <div className="console__title">
@@ -35,11 +12,12 @@ function ConsoleRequest({ consoleRequest, state }) {
                     action="#"
                     method="#"
                     id="request-form"
-                    onSubmit={onSubmit}
+                    onSubmit={submitRequest}
                 >
                     <AceEditor
                         placeholder="Enter the JSON"
                         onChange={ohChange}
+                        value={value}
                         mode="json"
                         theme="github"
                         fontSize={14}
@@ -51,8 +29,7 @@ function ConsoleRequest({ consoleRequest, state }) {
                         }}
                         width="100%"
                         setOptions={{
-                            showLineNumbers: true,
-                            tabSize: 2,
+                            useWorker: false,
                         }}
                     />
                 </form>
@@ -61,16 +38,4 @@ function ConsoleRequest({ consoleRequest, state }) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        state: state,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        consoleRequest: (value) => dispatch(consoleRequest(value)),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ConsoleRequest);
+export default ConsoleRequest;

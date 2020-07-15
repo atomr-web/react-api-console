@@ -3,6 +3,7 @@ import IconHistoryClear from "./icons/IconHistoryClear";
 import HistoryItem from "./HistoryItem";
 
 function History({ items }) {
+    console.log(items);
     return (
         <div className="header__row header__row_bottom">
             <div className="header__history">
