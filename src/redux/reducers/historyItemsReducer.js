@@ -72,7 +72,7 @@ export const historyItemReducer = (state = initState, action) => {
             };
         case REPLACE_HISTORY_ITEM:
             return {
-                ...state,
+                ...state.items.splice(state.items.length - 1, 1),
                 items: [
                     {
                         id: action.id,
@@ -82,7 +82,7 @@ export const historyItemReducer = (state = initState, action) => {
                         isShowMenu: false,
                         query: action.query,
                     },
-                    ...state.items.splice(0, state.items.length - 1),
+                    ...state.items,
                 ],
             };
         default:

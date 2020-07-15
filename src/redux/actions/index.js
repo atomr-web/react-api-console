@@ -106,9 +106,9 @@ export const historyMenuRun = (id, query) => (dispatch, getState) => {
     let curItem = items.find((i) => {
         return i.id === id;
     });
-    if (items.length > 0) {
-        dispatch(replaceHistoryItem(curItem));
-    }
+    console.log(curItem);
+
+    // dispatch(replaceHistoryItem(curItem));
 };
 
 export const historyAddItem = (status, name, query) => (dispatch, getState) => {
@@ -122,10 +122,11 @@ export const historyAddItem = (status, name, query) => (dispatch, getState) => {
     const isExist = items.flatMap((i) => {
         return i.name === name;
     });
-    if (!isExist.includes(true) && items.length > 0) {
-        dispatch(addHistoryItem(++maxId, status, name, query));
-    }
-    dispatch(addHistoryItem(0, status, name, query));
+
+    // if (!isExist.includes(true) && items.length > 0) {
+    //     dispatch(addHistoryItem(++maxId, status, name, query));
+    // }
+    // dispatch(addHistoryItem(0, status, name, query));
 };
 
 export * from "./authActions";
