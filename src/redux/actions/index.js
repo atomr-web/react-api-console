@@ -9,7 +9,7 @@ import {
     toggleCopyText,
     toggleHistoryMenu,
     addHistoryItem,
-    replaceHistoryItem,
+    updateHistory,
 } from "./historyActions";
 import {} from "./screenToggleActions";
 import sendsay from "../api";
@@ -72,20 +72,22 @@ export const logout = () => (dispatch) => {
 // CONSOLE
 export const consoleRequest = (requestObj) => (dispatch) => {
     dispatch(isRequesting(true));
+
     requestObj = JSON.parse(requestObj);
-    const requestQuery = requestObj.action;
-    const requestStr = JSON.stringify(requestObj);
+    const name = requestObj.action;
+    const query = JSON.stringify(requestObj);
+
     sendsay
         .request(requestObj)
         .then((res) => {
             dispatch(requestSuccess(requestObj, res));
             dispatch(isRequesting(false));
-            dispatch(historyAddItem(true, requestQuery, requestStr));
+            dispatch(historyAddItem(true, name, query));
         })
         .catch((err) => {
             dispatch(requestFailure(requestObj, err));
             dispatch(isRequesting(false));
-            dispatch(historyAddItem(false, requestQuery, requestStr));
+            dispatch(historyAddItem(false, name, query));
         });
 };
 
@@ -99,34 +101,36 @@ export const toggleCopyTimeout = (id) => (dispatch) => {
 };
 
 export const historyMenuRun = (id, query) => (dispatch, getState) => {
-    dispatch(consoleRequest(query));
+    dispatch(consoleRequest(query, id));
     dispatch(toggleHistoryMenu(id, false));
-
-    let items = getState().items.items;
-    let curItem = items.find((i) => {
-        return i.id === id;
-    });
-    console.log(curItem);
-
-    // dispatch(replaceHistoryItem(curItem));
+    dispatch(updateHistoryFields(id));
 };
 
 export const historyAddItem = (status, name, query) => (dispatch, getState) => {
     const items = getState().items.items;
-    let maxId = Math.max.apply(
+
+    let maxIdArr = Math.max.apply(
         Math,
         items.map((i) => {
             return i.id;
         })
     );
-    const isExist = items.flatMap((i) => {
+    const isExist = items.some((i) => {
         return i.name === name;
     });
 
-    // if (!isExist.includes(true) && items.length > 0) {
-    //     dispatch(addHistoryItem(++maxId, status, name, query));
-    // }
-    // dispatch(addHistoryItem(0, status, name, query));
+    !isExist && dispatch(addHistoryItem(++maxIdArr, status, name, query));
+};
+
+const updateHistoryFields = (id) => (dispatch, getState) => {
+    let items = getState().items.items;
+    const curItem = items.find((i) => {
+        return i.id === id;
+    });
+    const curItemIdx = items.indexOf(curItem);
+
+    items.splice(curItemIdx, 1);
+    dispatch(updateHistory([curItem, ...items]));
 };
 
 export * from "./authActions";

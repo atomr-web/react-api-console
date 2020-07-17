@@ -3,7 +3,7 @@ import {
     TOGGLE_HISTORY_MENU,
     TOGGLE_COPY_TEXT,
     MENU_HISTORY_RUN,
-    REPLACE_HISTORY_ITEM,
+    UPDATE_HISTORY,
 } from "../types";
 
 const initState = {
@@ -23,14 +23,6 @@ const initState = {
             isCopied: false,
             isShowMenu: false,
             query: `{"action": "pong 2"}`,
-        },
-        {
-            id: 2,
-            status: false,
-            name: "pong 3",
-            isCopied: false,
-            isShowMenu: false,
-            query: `{"action": "pong 3"}`,
         },
     ],
 };
@@ -59,7 +51,6 @@ export const historyItemReducer = (state = initState, action) => {
             return {
                 ...state,
                 items: [
-                    ...state.items,
                     {
                         id: action.id,
                         status: action.status,
@@ -68,22 +59,13 @@ export const historyItemReducer = (state = initState, action) => {
                         isShowMenu: false,
                         query: action.query,
                     },
+                    ...state.items,
                 ],
             };
-        case REPLACE_HISTORY_ITEM:
+        case UPDATE_HISTORY:
             return {
-                ...state.items.splice(state.items.length - 1, 1),
-                items: [
-                    {
-                        id: action.id,
-                        status: action.status,
-                        name: action.name,
-                        isCopied: false,
-                        isShowMenu: false,
-                        query: action.query,
-                    },
-                    ...state.items,
-                ],
+                ...state,
+                items: action.items,
             };
         default:
             return state;
