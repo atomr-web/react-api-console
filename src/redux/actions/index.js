@@ -1,3 +1,4 @@
+import { updateHistoryStorage } from "../../helpers";
 import {
     authFailure,
     authToggleStatus,
@@ -74,7 +75,7 @@ export const consoleRequest = (requestObj) => (dispatch) => {
     dispatch(isRequesting(true));
 
     requestObj = JSON.parse(requestObj);
-    const name = requestObj.action;
+    const name = requestObj[Object.keys(requestObj)[0]];
     const query = JSON.stringify(requestObj);
 
     sendsay
@@ -100,7 +101,7 @@ export const toggleCopyTimeout = (id) => (dispatch) => {
     }, 1000);
 };
 
-export const historyMenuRun = (id, query) => (dispatch, getState) => {
+export const historyMenuRun = (id, query) => (dispatch) => {
     dispatch(consoleRequest(query, id));
     dispatch(toggleHistoryMenu(id, false));
     dispatch(updateHistoryFields(id));
@@ -120,6 +121,7 @@ export const historyAddItem = (status, name, query) => (dispatch, getState) => {
     });
 
     !isExist && dispatch(addHistoryItem(++maxIdArr, status, name, query));
+    updateHistoryStorage(items);
 };
 
 const updateHistoryFields = (id) => (dispatch, getState) => {
@@ -128,10 +130,12 @@ const updateHistoryFields = (id) => (dispatch, getState) => {
         return i.id === id;
     });
     const curItemIdx = items.indexOf(curItem);
-
     items.splice(curItemIdx, 1);
+
     dispatch(updateHistory([curItem, ...items]));
+    updateHistoryStorage([curItem, ...items]);
 };
 
 export * from "./authActions";
 export * from "./consoleActions";
+export * from "./historyActions";

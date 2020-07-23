@@ -5,7 +5,11 @@ import "ace-builds/src-noconflict/theme-github";
 
 function ConsoleResponse({ response, isSuccess }) {
     return (
-        <div className={`console__item ${isSuccess ? "" : "console_error"}`}>
+        <div
+            className={`console__item console__item_response ${
+                isSuccess ? "" : "console_error"
+            }`}
+        >
             <div className="console__title">
                 <span>Ответ:</span>
             </div>

@@ -1,7 +1,13 @@
 import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-function HistoryItemMenu({ historyMenuRun, toggleCopyTimeout, id, query }) {
+function HistoryItemMenu({
+    historyMenuRun,
+    removeHistoryItem,
+    toggleCopyTimeout,
+    id,
+    query,
+}) {
     return (
         <>
             <div className="history-item__menu show">
@@ -14,7 +20,12 @@ function HistoryItemMenu({ historyMenuRun, toggleCopyTimeout, id, query }) {
                 >
                     <button>Скопировать</button>
                 </CopyToClipboard>
-                <button className="remove">Удалить</button>
+                <button
+                    className="remove"
+                    onClick={() => removeHistoryItem(id)}
+                >
+                    Удалить
+                </button>
             </div>
         </>
     );

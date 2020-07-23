@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toggleHistoryMenu } from "../redux/actions/historyActions";
-import { toggleCopyTimeout, historyMenuRun } from "../redux/actions";
+import {
+    toggleCopyTimeout,
+    historyMenuRun,
+    removeHistoryItem,
+} from "../redux/actions";
 import IconHistoryToggle from "./icons/IconHistoryToggle";
 import IconHistoryStatusTrue from "./icons/IconHistoryStatusTrue";
 import IconHistoryStatusFalse from "./icons/IconHistoryStatusFalse";
@@ -16,8 +20,8 @@ function HistoryItem({
     isCopied,
     toggleMenu,
     historyMenuRun,
+    removeHistoryItem,
     toggleCopyTimeout,
-    state,
 }) {
     return (
         <div className="header-history__item">
@@ -40,6 +44,7 @@ function HistoryItem({
             {isShowMenu ? (
                 <HistoryItemMenu
                     historyMenuRun={historyMenuRun}
+                    removeHistoryItem={removeHistoryItem}
                     toggleCopyTimeout={toggleCopyTimeout}
                     id={id}
                     query={query}
@@ -55,6 +60,7 @@ const mapDispatchToProps = (dispatch) => {
         toggleMenu: (id, isShowMenu) =>
             dispatch(toggleHistoryMenu(id, isShowMenu)),
         historyMenuRun: (id, query) => dispatch(historyMenuRun(id, query)),
+        removeHistoryItem: (id) => dispatch(removeHistoryItem(id)),
     };
 };
 

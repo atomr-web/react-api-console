@@ -4,6 +4,7 @@ import {
     TOGGLE_COPY_TEXT,
     MENU_HISTORY_RUN,
     UPDATE_HISTORY,
+    REMOVE_HISTORY_ITEM,
 } from "../types";
 
 const initState = {
@@ -23,6 +24,14 @@ const initState = {
             isCopied: false,
             isShowMenu: false,
             query: `{"action": "pong 2"}`,
+        },
+        {
+            id: 2,
+            status: false,
+            name: "pong 3",
+            isCopied: false,
+            isShowMenu: false,
+            query: `{"action": "pong 3"}`,
         },
     ],
 };
@@ -61,6 +70,11 @@ export const historyItemReducer = (state = initState, action) => {
                     },
                     ...state.items,
                 ],
+            };
+        case REMOVE_HISTORY_ITEM:
+            return {
+                ...state,
+                items: state.items.filter((i) => i.id !== action.id),
             };
         case UPDATE_HISTORY:
             return {

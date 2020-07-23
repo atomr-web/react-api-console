@@ -1,9 +1,20 @@
 import React from "react";
 import AceEditor from "react-ace";
 
-function ConsoleRequest({ submitRequest, ohChange, isValid, value }) {
+function ConsoleRequest({
+    submitRequest,
+    ohChange,
+    isValid,
+    value,
+    requestField,
+}) {
     return (
-        <div className={`console__item ${isValid ? "" : "console_error"}`}>
+        <div
+            className={`console__item console__item_request ${
+                isValid ? "" : "console_error"
+            }`}
+            ref={requestField}
+        >
             <div className="console__title">
                 <span>Запрос:</span>
             </div>
@@ -15,6 +26,7 @@ function ConsoleRequest({ submitRequest, ohChange, isValid, value }) {
                     onSubmit={submitRequest}
                 >
                     <AceEditor
+                        width="100%"
                         placeholder="Enter the JSON"
                         onChange={ohChange}
                         value={value}
@@ -27,7 +39,6 @@ function ConsoleRequest({ submitRequest, ohChange, isValid, value }) {
                         editorProps={{
                             $blockScrolling: true,
                         }}
-                        width="100%"
                         setOptions={{
                             useWorker: false,
                         }}

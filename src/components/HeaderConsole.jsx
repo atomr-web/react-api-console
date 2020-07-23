@@ -18,6 +18,8 @@ function HeaderConsole({
     const login = authData.login;
     const sublogin = authData.sublogin;
 
+    const itemsStorage = JSON.parse(localStorage.getItem("history"));
+    console.log(itemsStorage);
     return (
         <div>
             <header>
@@ -54,7 +56,7 @@ function HeaderConsole({
                         </button>
                     </div>
                 </div>
-                <History items={items} />
+                {items.length > 0 && <History items={items} />}
             </header>
         </div>
     );
@@ -62,7 +64,7 @@ function HeaderConsole({
 
 const mapStateToProps = (state) => {
     return {
-        isFullScreen: state.isFullScreen,
+        isFullScreen: state.fullScreen.isFullScreen,
         items: state.items.items,
         authData: state.auth.authData,
     };

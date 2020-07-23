@@ -1,5 +1,6 @@
 import {
     ADD_HISTORY_ITEM,
+    REMOVE_HISTORY_ITEM,
     TOGGLE_COPY_TEXT,
     COPY_QUERY_HISTORY_ITEM,
     TOGGLE_HISTORY_MENU,
@@ -15,6 +16,20 @@ export const addHistoryItem = (id, status, name, query) => {
         status,
         name,
         query,
+    };
+};
+
+export const removeHistoryItem = (id) => {
+    return {
+        type: REMOVE_HISTORY_ITEM,
+        id,
+    };
+};
+
+export const menuHistoryRun = (id) => {
+    return {
+        type: MENU_HISTORY_RUN,
+        id,
     };
 };
 
@@ -51,12 +66,5 @@ export const toggleHistoryMenu = (id, isShowMenu) => {
 export const isShowHistoryItem = () => {
     return {
         type: IS_SHOW_HISTORY_MENU,
-    };
-};
-
-export const menuHistoryRun = (id) => {
-    return {
-        type: MENU_HISTORY_RUN,
-        id,
     };
 };

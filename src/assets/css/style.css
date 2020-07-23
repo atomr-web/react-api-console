@@ -718,9 +718,9 @@ header .row__item {
 }
 
 .console {
+    flex: 1 1 100%;
     display: flex;
     flex-direction: row;
-    align-items: stretch;
     padding: 10px 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -763,8 +763,16 @@ header .row__item {
     padding: 0 !important;
 }
 
-.console > div {
-    width: calc(100% - 2px);
+.console .console__item {
+    min-width: 250px;
+}
+
+.console__item.console__item_request {
+    width: calc(50% - 2px);
+}
+
+.console__item.console__item_response {
+    flex: 1 1 auto;
 }
 
 .console__bottom {
